@@ -18,6 +18,7 @@ metadata:
 spec:
   validationFailureAction: enforce
   background: true
+  failurePolicy: Fail
   rules:
     - name: host-namespaces
       match:
