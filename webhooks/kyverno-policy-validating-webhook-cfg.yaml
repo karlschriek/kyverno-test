@@ -1,0 +1,43 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  creationTimestamp: "2022-03-23T10:28:53Z"
+  generation: 1
+  name: kyverno-policy-validating-webhook-cfg
+  ownerReferences:
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRole
+    name: kyverno:webhook
+    uid: 80a477f2-324a-4a9f-bc6c-07f2b29e200a
+  resourceVersion: "12770765"
+  selfLink: /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/kyverno-policy-validating-webhook-cfg
+  uid: 228893ba-5d33-464d-b67a-876f3b4ba203
+webhooks:
+- admissionReviewVersions:
+  - v1beta1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSXlNRE15TXpBNU1qZ3lNMW9YRFRJek1ETXlNekV3TWpneU0xb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS1dUMjZRR0pFUkpQSVFkZjVaZ3RJc2RrS3NwYXlSWVJLWDY5dzB2QnBIYlJXcU03VGN2Rkd4Z2Nka1EKU3NaVzEwTEFNUEJIOXVpeWxyOXdsYkdXRUd1R3BKdXBjV1czdTk0MnYvNXhBU3c4TmoxbW9KRzJqR0pMR2xzWQpsQ2NGSHFiTElOOHpKbkJFV2ZjaVRjVHhTRUs5ZkZzVmNsZlZRaFdhZldCU2R3ZXBDcHh6T2RtVHhxNXZLT1F3CmhpM3dlNnFCRmc2Q3g4Wk16OFRaN1V0bWNnVVpPTDFISk16d21VaDhXM0dYNUQrVUtqaHQrTEFLSjlqZENYQzEKL0VtSk5mbFFtUmJaS3Z5Y2V6d3J2RkZvU05aaCs5L0p1Q09CVnFJKzhENVphNG1RMStvYTlFRWdSVmVWMTZGRQp1am1sR1Fscmw0Q0pNY1lDL09sR2ZNT1FXRXNDQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk04RVdKbmF1WWM0MTVsa1E5ZytHWW1KQUJkbk1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUE2M3BUMmdFbWVBYm5mK2Y3N3FsVDAxZWRjMStyejJOQyt2RzVzUTg2bQo4TEJKdVg5Zmk2UmFoT2FhcHFUUmFCZXRiTER1VVpkaE5RWWljWXRNVU9zZytEVzFCbmUxdGN4Q0M0NUF1SDZKCmljS1NHaEs3MzVyYnRydFFLV0VabU1RVGhOOSttM3c1QzhSUGtrVGJZR29ic2w2dG5TeHNwNHlKREh5aml2N3gKWnNrWDZmVElOS2c1QXlKeUtZbERsMlY1djV1MitJV3FYOC9DdFJsWVhuUTRVN3d3N1B2RFNzS0d6cWJCQ09iKwoxREVqVW80cHlyMExOR0svQ2htTWEzNzZ0WHpIbTdNNmg0amJITElNTkhKMkp0RS82emxGalE3Y0EzcG55d3BSCmc1dXJXQVdlTjRLdDhIS2g3YzdhRE14OWlqL0tQRU9Hc1dwRTA2d2pPVzFqCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: kyverno-svc
+      namespace: kyverno
+      path: /policyvalidate
+      port: 443
+  failurePolicy: Fail
+  matchPolicy: Equivalent
+  name: validate-policy.kyverno.svc
+  namespaceSelector: {}
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - kyverno.io
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - clusterpolicies/*
+    - policies/*
+    scope: '*'
+  sideEffects: NoneOnDryRun
+  timeoutSeconds: 10
