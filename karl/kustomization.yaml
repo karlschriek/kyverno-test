@@ -1,0 +1,4 @@
+resources:
+- disallow-host-namespaces.yaml
+- disallow-privileged-containers.yaml
+- namespace.yaml
