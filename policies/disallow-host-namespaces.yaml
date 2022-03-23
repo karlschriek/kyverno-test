@@ -2,6 +2,7 @@ apiVersion: kyverno.io/v1
 kind: Policy
 metadata:
   name: disallow-host-namespaces
+  namespace: karl
   annotations:
     policies.kyverno.io/title: Disallow Host Namespaces
     policies.kyverno.io/category: Pod Security Standards (Baseline)
